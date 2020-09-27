@@ -2,7 +2,7 @@
 .terraform
 *.tfstate*
 *.tfvars*
-.terraformrc
+#.terraformrc
 
 # Ignore vendor directory
 **/vendor
