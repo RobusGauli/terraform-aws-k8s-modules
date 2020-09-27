@@ -136,25 +136,3 @@ module "ecr" {
   namespace  = module.label.namespace
   attributes = var.attributes
 }
-
-module "bastion_hosts" {
-  source = "./modules/bastion"
-
-  tags       = module.label.tags
-  name       = module.label.name
-  stage      = module.label.stage
-  namespace  = module.label.namespace
-  attributes = module.label.attributes
-
-  cluster_name                = module.eks_cluster.eks_cluster_id
-  instance_type               = var.bastion_instance_type
-  subnet_ids                  = module.subnets.public_subnet_ids
-  region                      = var.region
-  vpc_id                      = module.vpc.vpc_id
-  destination_security_groups = [module.eks_workers.security_group_id]
-  ami_id                      = var.ami_id
-
-  min_size         = 0
-  max_size         = 3
-  desired_capacity = 1
-}
