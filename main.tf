@@ -31,13 +31,13 @@ module "vpc" {
 module "subnets" {
   source = "./modules/subnets"
 
-  availability_zones  = var.availability_zones
-  namespace           = module.label.namespace
-  stage               = module.label.stage
-  name                = module.label.name
-  vpc_id              = module.vpc.vpc_id
-  igw_id              = module.vpc.igw_id
-  cidr_block          = module.vpc.vpc_cidr_block
+  availability_zones = var.availability_zones
+  namespace          = module.label.namespace
+  stage              = module.label.stage
+  name               = module.label.name
+  vpc_id             = module.vpc.vpc_id
+  igw_id             = module.vpc.igw_id
+  cidr_block         = module.vpc.vpc_cidr_block
   nat_gateway_enabled = true
   tags                = local.tags
 }
@@ -135,4 +135,26 @@ module "ecr" {
   stage      = module.label.stage
   namespace  = module.label.namespace
   attributes = var.attributes
+}
+
+module "bastion_hosts" {
+  source = "./modules/bastion"
+
+  tags       = module.label.tags
+  name       = module.label.name
+  stage      = module.label.stage
+  namespace  = module.label.namespace
+  attributes = module.label.attributes
+
+  cluster_name                = module.eks_cluster.eks_cluster_id
+  instance_type               = var.bastion_instance_type
+  subnet_ids                  = module.subnets.public_subnet_ids
+  region                      = var.region
+  vpc_id                      = module.vpc.vpc_id
+  destination_security_groups = [module.eks_workers.security_group_id]
+  ami_id                      = var.ami_id
+
+  min_size         = 0
+  max_size         = 2
+  desired_capacity = 1
 }
