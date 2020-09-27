@@ -15,7 +15,7 @@ terraform-create-workspace:
 
 ## List workspaces
 terraform-list-workspace:
-	@terraform workspace list 
+	@terraform workspace list
 
 ## Generate terraform plan
 terraform-plan: terraform-init
@@ -23,7 +23,7 @@ terraform-plan: terraform-init
 
 ## Generate terraform plan out to the file `plan.tfstate`
 terraform-plan-out: terraform-init
-	@terraform plan -out plan.tfstate
+	@terraform plan -out $(OUTFILE)
 
 ## Apply terraform plan
 terraform-apply: terraform-init
@@ -36,11 +36,11 @@ terraform-destroy-plan-out: terraform-init
 
 ## Destroy terraform infrastructure from outfile
 terraform-destroy-from-outfile:terraform-init
-	@terraform apply "destroy-plan.tfstate" 
+	@terraform apply "destroy-plan.tfstate"
 
 ## Apply terraform plan from outfile
 terraform-apply-from-outfile: terraform-init
-	@terraform apply "plan.tfstate" 
+	@terraform apply $(OUTFILE)
 
 ## Destroy terraform plan
 terraform-destroy: terraform-init
@@ -51,7 +51,7 @@ terraform-validate: terraform-init
 	@terraform validate
 
 ## Generate Terraform Output
-terraform-output: 
+terraform-output:
 	@terraform output -json
 
 ## Lint check Terraform
