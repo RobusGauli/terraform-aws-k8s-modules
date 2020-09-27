@@ -32,10 +32,10 @@ terraform-apply: terraform-init
 
 ## Generate terraform destroy plan out to the file `destroy-plan.tfstate`
 terraform-destroy-plan-out: terraform-init
-	@terraform plan -destroy -out=$(DESTROY_OUTFILE)
+	@terraform plan -destroy -out=$(DESTROY_OUTFILE) -auto-approve -input=false
 
 ## Destroy terraform infrastructure from outfile
-terraform-destroy-from-outfile:terraform-init
+terraform-destroy-from-outfile: terraform-init
 	@terraform apply $(DESTROY_OUTFILE)
 
 ## Apply terraform plan from outfile
