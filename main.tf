@@ -155,6 +155,6 @@ module "bastion_hosts" {
   ami_id                      = var.ami_id
 
   min_size         = 0
-  max_size         = 3
+  max_size         = 2
   desired_capacity = 1
 }
