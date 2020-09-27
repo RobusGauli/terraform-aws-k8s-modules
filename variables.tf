@@ -137,11 +137,6 @@ variable "stage" {
   description = "Stage Eg: `dev`"
 }
 
-variable "route53_root_domain_name" {
-  type        = string
-  description = "Root Domain Name of the route53 hosted zone Eg. example.com"
-}
-
 variable "ttl" {
   type        = string
   description = "TTL (in seconds) for the record"

@@ -41,17 +41,8 @@ locals {
   configmap_auth_template_file = join("/", [path.root, "addons", "configmap-auth.yaml.tpl"])
   configmap_auth_file          = join("/", [path.module, "configmap-auth.yaml"])
 
-  dashboard_template_file = join("/", [path.root, "addons", "dashboard.yaml.tpl"])
-  dashboard_file          = join("/", [path.module, "dashboard.yaml"])
-
-  storage_class_template_file = join("/", [path.root, "addons", "storage-class.yaml.tpl"])
-  storage_class_file          = join("/", [path.module, "storage-class.yaml"])
-
   ingress_controller_template_file = "${path.root}/addons/ingress-controller.yaml.tpl"
   ingress_controller_file          = "${path.module}/ingress-controller.yaml"
-
-  percona_crd_template_file = join("/", [path.root, "addons", "percona-custom-resource-definition.yaml.tpl"])
-  percona_crd_file          = join("/", [path.module, "percona-custom-resource-definition.yaml"])
 
   external_dns_template_file = join("/", [path.root, "addons", "external-dns.yaml.tpl"])
   external_dns_file          = join("/", [path.module, "external-dns.yaml"])
@@ -121,32 +112,6 @@ resource "local_file" "external_dns" {
   filename = local.external_dns_file
 }
 
-
-data "template_file" "dashboard" {
-  count    = var.enabled ? 1 : 0
-  template = file(local.dashboard_template_file)
-
-}
-
-resource "local_file" "dashboard" {
-  count    = var.enabled ? 1 : 0
-  content  = join("", data.template_file.dashboard.*.rendered)
-  filename = local.dashboard_file
-}
-
-data "template_file" "storage_class" {
-  count    = var.enabled ? 1 : 0
-  template = file(local.storage_class_template_file)
-
-}
-
-resource "local_file" "storage_class" {
-  count    = var.enabled ? 1 : 0
-  content  = join("", data.template_file.storage_class.*.rendered)
-  filename = local.storage_class_file
-}
-
-
 data "template_file" "ingress_controller" {
   count    = var.enabled ? 1 : 0
   template = file(local.ingress_controller_template_file)
@@ -161,18 +126,6 @@ resource "local_file" "ingress_controller" {
   content  = join("", data.template_file.ingress_controller.*.rendered)
   filename = local.ingress_controller_file
 }
-
-data "template_file" "percona_custom_resource_definition" {
-  count    = var.enabled ? 1 : 0
-  template = file(local.percona_crd_template_file)
-}
-
-resource "local_file" "percona_custom_resource_definition" {
-  count    = var.enabled ? 1 : 0
-  content  = join("", data.template_file.percona_custom_resource_definition.*.rendered)
-  filename = local.percona_crd_file
-}
-
 
 
 resource "null_resource" "eks_init_script" {
@@ -193,10 +146,6 @@ resource "null_resource" "eks_init_script" {
     command     = <<EOT
       while [[ ! -e ${local.configmap_auth_file} ]] ; do sleep 1; done && \
       aws eks update-kubeconfig --name=${local.cluster_name} --region=${var.region} --kubeconfig=${var.kubeconfig_path} && \
-      kubectl apply -f ${local.dashboard_file} --kubeconfig ${var.kubeconfig_path}
-      kubectl apply -f ${local.dashboard_file} --kubeconfig ${var.kubeconfig_path}
-      kubectl apply -f ${local.storage_class_file} --kubeconfig ${var.kubeconfig_path}
-      kubectl apply -f ${local.percona_crd_file} --kubeconfig ${var.kubeconfig_path}
       kubectl apply -f ${local.configmap_auth_file} --kubeconfig ${var.kubeconfig_path}
       kubectl apply -f ${local.ingress_controller_file} --kubeconfig ${var.kubeconfig_path}
       kubectl apply -f ${local.external_dns_file} --kubeconfig ${var.kubeconfig_path}

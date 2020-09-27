@@ -52,7 +52,7 @@ current:
 	@echo -e "current => $(GREEN)$(ENVIRONMENT_OVERRIDE_PATH)$(NC)"
 
 # Base image for kubernetes deployment
-IMAGE_NAME ?= robusdockerhub/kube-base-image
+IMAGE_NAME ?= robusdockerhub/recovvo-runtime-deps-image
 
 # Alias command for docker's `make` executable
 DOCKER_RUN ?=  \

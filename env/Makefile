@@ -3,13 +3,13 @@ export TF_INPUT = false
 
 export TF_LOG ?=
 
-export TF_VAR_namespace ?= singular
+export TF_VAR_namespace ?= recovvo
 
 export TF_VAR_name ?= kube
 
 export TF_VAR_cidr_block ?= 10.0.0.0/16
 
-export TF_VAR_instance_type ?= t3.xlarge
+export TF_VAR_instance_type ?= t3.medium
 
 export TF_VAR_health_check_type ?= EC2
 
@@ -34,4 +34,3 @@ export TF_VAR_kubeconfig_path ?= ~/.kube/config
 export TF_VAR_bootstrap_extra_args ?= --use-max-pods=40
 
 export TF_VAR_ttl ?= 60
-

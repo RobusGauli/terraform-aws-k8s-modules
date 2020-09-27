@@ -108,7 +108,7 @@ spec:
             # If unspecified, it will be discovered from ec2metadata.
             # - --aws-vpc-id=vpc-xxxxxx
 
-            # AWS region this ingress controller will operate in. 
+            # AWS region this ingress controller will operate in.
             # If unspecified, it will be discovered from ec2metadata.
             # List of regions: http://docs.aws.amazon.com/general/latest/gr/rande.html#vpc_region
             # - --aws-region=us-west-1
@@ -125,14 +125,14 @@ spec:
             # a project like kube2iam for granting access.
             #- name: AWS_ACCESS_KEY_ID
             #  value: KEYVALUE
-            
+
             # AWS key secret for authenticating with the AWS API.
             # This is only here for examples. It's recommended you instead use
             # a project like kube2iam for granting access.
             #- name: AWS_SECRET_ACCESS_KEY
             #  value: SECRETVALUE
           # Repository location of the ALB Ingress Controller.
-          image: docker.io/amazon/aws-alb-ingress-controller:v1.1.5
+          image: 894847497797.dkr.ecr.us-west-2.amazonaws.com/aws-alb-ingress-controller:v1.0.0
           imagePullPolicy: Always
           name: server
           resources: {}

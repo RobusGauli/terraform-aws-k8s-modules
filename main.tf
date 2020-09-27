@@ -6,11 +6,6 @@ locals {
 }
 
 
-data "aws_route53_zone" "zone" {
-  name         = var.route53_root_domain_name
-  private_zone = false
-}
-
 module "label" {
   source = "./modules/label"
 
@@ -43,7 +38,6 @@ module "subnets" {
   vpc_id             = module.vpc.vpc_id
   igw_id             = module.vpc.igw_id
   cidr_block         = module.vpc.vpc_cidr_block
-  // In future we might enable this
   nat_gateway_enabled = true
   tags                = local.tags
 }
@@ -163,8 +157,4 @@ module "bastion_hosts" {
   min_size         = 0
   max_size         = 3
   desired_capacity = 1
-
-  # DNS Configuration
-  zone_id = data.aws_route53_zone.zone.id
 }
-

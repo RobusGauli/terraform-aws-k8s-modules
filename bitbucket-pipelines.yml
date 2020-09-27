@@ -4,7 +4,7 @@ pipelines:
   custom:
     write-to-dev-secretsmanager:
       - step:
-          name: Write dev terraform output to SM 
+          name: Write dev terraform output to SM
           deployment: dev-secretsmanager
           script:
             - source ci-scripts/env.sh $SECRET_KEY
@@ -14,7 +14,7 @@ pipelines:
             - aws secretsmanager put-secret-value --secret-id singularkey/dev/terraformoutput  --secret-string file://output.json
     write-to-prod-secretsmanager:
       - step:
-          name: Write prod terraform output to SM 
+          name: Write prod terraform output to SM
           deployment: prod-secretsmanager
           script:
             - source ci-scripts/env.sh $SECRET_KEY
@@ -61,11 +61,11 @@ pipelines:
             - openssl enc -nosalt -aes-256-cbc -d -in .terraformrc.sec -base64 -K $SSL_KEY -iv $SSL_IV -out .terraformrc
             - aws s3 cp s3://prod-singularkey-terraform-plans/prod-infrastructure-destroy-plan-${BITBUCKET_BUILD_NUMBER}.tfstate destroy-plan.tfstate
             - make terraform-destroy-from-outfile
-  
+
   branches:
     dev:
       - step:
-          name: Lint and Plan 
+          name: Lint and Plan
           deployment: dev-plan
           script:
             - source ci-scripts/env.sh $SECRET_KEY
@@ -74,7 +74,7 @@ pipelines:
             - make terraform-plan-out
             - aws s3 cp plan.tfstate s3://singularkey-terraform-plans/infrastructure-plan-${BITBUCKET_BUILD_NUMBER}.tfstate
       - step:
-          name: Apply terraform plan 
+          name: Apply terraform plan
           deployment: dev-apply
           trigger: manual
           script:
@@ -84,7 +84,7 @@ pipelines:
             - make terraform-apply-from-outfile
     staging:
       - step:
-          name: Lint and Plan 
+          name: Lint and Plan
           deployment: staging-plan
           script:
             - source ci-scripts/env.sh $SECRET_KEY
@@ -96,7 +96,7 @@ pipelines:
 
     master:
       - step:
-          name: Lint and Plan 
+          name: Lint and Plan
           deployment: prod-plan
           script:
             - source ci-scripts/env.sh $SECRET_KEY
@@ -105,7 +105,7 @@ pipelines:
             - make terraform-plan-out
             - aws s3 cp plan.tfstate s3://prod-singularkey-terraform-plans/prod-infrastructure-plan-${BITBUCKET_BUILD_NUMBER}.tfstate
       - step:
-          name: Apply terraform plan 
+          name: Apply terraform plan
           deployment: prod-apply
           trigger: manual
           script:

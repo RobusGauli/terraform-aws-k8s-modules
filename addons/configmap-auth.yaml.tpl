@@ -8,7 +8,7 @@ data:
     ${indent(4, map_worker_roles_yaml)}
 %{if map_bastion_host_roles_yaml != "[]" }
     ${indent(4, map_bastion_host_roles_yaml)}
-%{ endif } 
+%{ endif }
 %{if map_additional_iam_roles_yaml != "[]" }
     ${indent(4, map_additional_iam_roles_yaml)}
 %{ endif }
