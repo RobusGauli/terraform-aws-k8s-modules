@@ -19,7 +19,7 @@ variable "enabled" {
 
 variable "use_custom_image_id" {
   type        = bool
-  default     = true
+  default     = false
   description = "Use custom image id if flag to `true`"
 }
 
