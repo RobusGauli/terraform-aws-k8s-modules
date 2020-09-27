@@ -31,13 +31,13 @@ module "vpc" {
 module "subnets" {
   source = "./modules/subnets"
 
-  availability_zones = var.availability_zones
-  namespace          = module.label.namespace
-  stage              = module.label.stage
-  name               = module.label.name
-  vpc_id             = module.vpc.vpc_id
-  igw_id             = module.vpc.igw_id
-  cidr_block         = module.vpc.vpc_cidr_block
+  availability_zones  = var.availability_zones
+  namespace           = module.label.namespace
+  stage               = module.label.stage
+  name                = module.label.name
+  vpc_id              = module.vpc.vpc_id
+  igw_id              = module.vpc.igw_id
+  cidr_block          = module.vpc.vpc_cidr_block
   nat_gateway_enabled = true
   tags                = local.tags
 }
