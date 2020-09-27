@@ -78,17 +78,6 @@ resource "aws_iam_role_policy_attachment" "amazon_ses_full_access" {
   role       = join("", aws_iam_role.default.*.name)
 }
 
-resource "aws_iam_role_policy_attachment" "amazon_sns_full_access" {
-  count      = var.enabled && var.use_existing_aws_iam_instance_profile == false ? 1 : 0
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSNSFullAccess"
-  role       = join("", aws_iam_role.default.*.name)
-}
-
-resource "aws_iam_role_policy_attachment" "amazon_Pinpoint_SMS_Voice_FullAccess" {
-  count      = var.enabled && var.use_existing_aws_iam_instance_profile == false ? 1 : 0
-  policy_arn = "arn:aws:iam::210651902988:policy/PinpointSMSVoiceFullAccess"
-  role       = join("", aws_iam_role.default.*.name)
-}
 
 resource "aws_iam_instance_profile" "default" {
   count = var.enabled && var.use_existing_aws_iam_instance_profile == false ? 1 : 0
