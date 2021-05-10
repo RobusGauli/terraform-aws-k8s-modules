@@ -1,4 +1,4 @@
-#  Recovvo Backend Infrastructure
+# Terraform Kubernetes modules
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@
 
 ## Overview
 
-Recovvo's infrastructure is provisioned using `Terraform` which provides us with declarative interface for managing cloud resources lifecycle. The main principle behind managing infrastructure as a code is `Idempotence`, which ensures deployment is consistent as a function of time and change. For instance, `resource` in the context of terraform could be ec2-compute in AWS cloud whose declarative configuration could look something like below:
+Kubernetes's infrastructure is provisioned using `Terraform` which provides us with declarative interface for managing cloud resources lifecycle. The main principle behind managing infrastructure as a code is `Idempotence`, which ensures deployment is consistent as a function of time and change. For instance, `resource` in the context of terraform could be ec2-compute in AWS cloud whose declarative configuration could look something like below:
 
 ```terraform
 resource "aws_instance" "web" {
@@ -201,7 +201,7 @@ Path where kubeconfig should reside within worker compute. Example: `/home/bitbu
 * TF_VAR_region
 Name of AWS region where infrastructure needs to be deployed.
 * TF_VAR_route53_root_domain_name
-Root domain name. Example: `recovvo.com`
+Root domain name. Example: `contoso.com`
 * TF_VAR_stage
 Name of the stage. Example `dev`, `prod`
 * TF_WORKSPACE
@@ -221,7 +221,7 @@ In future, this could be automated via scripts.
 ##### 2. Delete all the deployments within kubernetes cluster
 > Note: This should cause clean up resources such as ALB, Persistent Volumes (PVS) and any other dangling resources created by kubernetes and not the terraform.
 
-##### 3. Set the environment variable `DEPLOY` to `False` in Bitbucket Pipeline
+##### 3. Set the environment variable `DEPLOY` to `False` in your Pipeline
 Below must be the values of environment variables in Repository Variables:
 * `DESTROY = True`
 * `DEPLOY = False`

@@ -44,15 +44,13 @@ NC = \033[0m
 help:
 	@printf "Available targets:\n\n"
 	@$(SELF) -s help-generate
-	@printf "Available docker targets:\n\n"
-	@$(SELF) -s help-generate-docker
 
 ## Show current override file path
 current:
 	@echo -e "current => $(GREEN)$(ENVIRONMENT_OVERRIDE_PATH)$(NC)"
 
 # Base image for kubernetes deployment
-IMAGE_NAME ?= robusdockerhub/recovvo-runtime-deps-image
+IMAGE_NAME ?= robusdockerhub/contoso-runtime-deps-image
 
 # Alias command for docker's `make` executable
 DOCKER_RUN ?=  \

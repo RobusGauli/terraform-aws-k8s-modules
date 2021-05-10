@@ -3,7 +3,7 @@ export TF_INPUT = false
 
 export TF_LOG ?=
 
-export TF_VAR_namespace ?= recovvo
+export TF_VAR_namespace ?= dev-contoso
 
 export TF_VAR_name ?= kube
 

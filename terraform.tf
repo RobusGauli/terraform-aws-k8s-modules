@@ -16,7 +16,8 @@ terraform {
   # differentiate resource in aws based on environment or workspace we are in.
   backend "remote" {
     hostname     = "app.terraform.io"
-    organization = "recovvo"
+    # This needs to replaced by the organization that you create in terraform.io
+    organization = "contoso"
     # For multiple workspace support
     workspaces {
       prefix = "infrastructure-"
