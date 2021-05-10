@@ -11,9 +11,6 @@
 * [Infrastructure Deployment](#infrastructure-deployment)
 * [Infrastructure Deletion](#infrastructure-deletion)
 
-## Diagram
-![Architecture Diagram](assets/architecture.png)
-
 ## Overview
 
 Kubernetes's infrastructure is provisioned using `Terraform` which provides us with declarative interface for managing cloud resources lifecycle. The main principle behind managing infrastructure as a code is `Idempotence`, which ensures deployment is consistent as a function of time and change. For instance, `resource` in the context of terraform could be ec2-compute in AWS cloud whose declarative configuration could look something like below:
